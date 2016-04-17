@@ -1,0 +1,18 @@
+function [ output_args ] = train_svm(train_data, train_label, validate_data, validate_label,level,C)
+%   指定不同的参数，训练SVM
+%   输入为训练数据集和验证数据集，训练数据集用来训练svm模型，验证数据集用来评估模型
+%   返回TPR和FPR值作为评估结果
+        svm_struct = svmtrain(train_data, train_label,'KKTViolationLevel',level,'boxconstraint',C, 'kernel_function','rbf');
+        extimate = svmclassify(svm_struct,err_test);
+
+        conf = confusionmat(err_test_label,extimate);
+        tp = conf(2,2);
+        tn = conf(1,1);
+        fn = conf(2,1);
+        fp = conf(1,2);
+        tpr = tp / (tp + fn);
+        fpr = fp / (fp + tn);
+
+
+end
+
