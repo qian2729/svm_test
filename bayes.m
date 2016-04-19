@@ -4,7 +4,7 @@ function [ event_prediction ] = bayes(predict_label,TPR,FPR)
     % Block 4: Calculate event probablity from each indicator
     %-------------------------------------------------------------------------
     pe0=1e-5;                     %Set value for initial probability of an event
-    alpha=0.2;                    %Set smoothing parameter 0.3<alpha<0.9
+    alpha=0.3;                    %Set smoothing parameter 0.3<alpha<0.9
     pe=pe0;
     P_event = zeros(1,length(predict_label));
     for i=1:length(predict_label)    %Iterate Bayse Update Rule

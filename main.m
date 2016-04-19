@@ -28,8 +28,8 @@ split_index = 7;
 %         为选择好的参数
 % -----------------------------------------------------------------------------
 fprintf('step 4 参数调优\n');
-% [ tpr_array,fpr_array,params ] = fine_svm( train_data, train_label, validate_data, validate_label );
-% save('trained_params.mat','tpr_array','fpr_array','params'); % 保存训练的结果
+[ tpr_array,fpr_array,params ] = fine_svm( train_data, train_label, validate_data, validate_label );
+save('trained_params.mat','tpr_array','fpr_array','params'); % 保存训练的结果
 % load('trained_params.mat');
 % vis_tpr_fpr(tpr_array,fpr_array,params);
  
@@ -39,4 +39,4 @@ fprintf('step 4 参数调优\n');
 fprintf('step 5 性能评定\n');
 level = 0.8;
 C = 0.2;
-evaluate( train_data, train_label,test_err,events_flag_test,level,C );
+% evaluate( train_data, train_label,test_err,events_flag_test,level,C );
