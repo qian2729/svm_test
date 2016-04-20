@@ -5,8 +5,8 @@ function [ tpr_array,fpr_array,params ] = fine_svm( train_data, train_label, val
 %   返回值： tpr_array：不同参数下TPR的结果
 %           fpr_array：不同参数下FPR的结果
 %           params: 不同参数
-    levels = 0.1:0.02:2;
-    c_params = 0.1:0.02:2;
+    levels = 0.1:0.05:2;
+    c_params = 0.1:0.05:2;
     params = {};
     tpr_array = [];
     fpr_array = [];
@@ -14,14 +14,15 @@ function [ tpr_array,fpr_array,params ] = fine_svm( train_data, train_label, val
     for level = levels
         for c = c_params
             [ TPR, FPR ] = train_svm(train_data, train_label, validate_data, validate_label,level,c);
-            param = sprintf('l:%.2f-c:%.2f',level, c);
-            fprintf('%s\n',param);
+            
             % 如果指定svm参数训练出来的模型在验证集上TPR小于0.8， 就直接舍弃掉
 %             if TPR < 0.8
 %                 continue;
 %             end
             tpr_array = [tpr_array TPR];
             fpr_array = [fpr_array FPR];
+            param = sprintf('l:%.2f-c:%.2f:tpr:%.4f fpr:%.4f',level, c,TPR,FPR);
+            fprintf('%s\n',param);
             index = index + 1;
             params{index} = param;
         end    
